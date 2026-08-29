@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Wolf Logic — iPad Pro Mobile Commander & Magic Sheet</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg-dark: #080c14;
@@ -20,7 +23,13 @@
       --text-muted: #829ab1;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       background: var(--bg-dark);
       color: var(--text-main);
@@ -54,7 +63,11 @@
       font-weight: 900;
       letter-spacing: 1px;
     }
-    .brand span { color: var(--cyan-glow); }
+
+    .brand span {
+      color: var(--cyan-glow);
+    }
+
     .badge-ipad {
       background: rgba(0, 229, 255, 0.15);
       border: 1px solid var(--cyan-glow);
@@ -71,6 +84,7 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
     }
+
     .metric-pill {
       background: rgba(0, 229, 255, 0.08);
       border: 1px solid rgba(0, 229, 255, 0.3);
@@ -80,8 +94,20 @@
       align-items: center;
       gap: 6px;
     }
-    .timecode-val { color: var(--amber-glow); font-weight: bold; font-size: 0.95rem; }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-glow); box-shadow: 0 0 10px var(--green-glow); }
+
+    .timecode-val {
+      color: var(--amber-glow);
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-glow);
+      box-shadow: 0 0 10px var(--green-glow);
+    }
 
     /* Main Responsive Grid */
     main {
@@ -124,10 +150,10 @@
       align-items: center;
     }
 
-    /* Stage Layout Diagram SVG / DOM */
+    /* Stage Layout Diagram SVG / DOM - Pure Deep Black for Eos Magic Sheet */
     .stage-container {
-      background: radial-gradient(circle at 50% 30%, rgba(20, 35, 60, 0.5) 0%, rgba(8, 12, 20, 0.95) 75%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #000000;
+      border: 1px solid rgba(0, 229, 255, 0.25);
       border-radius: 10px;
       padding: 16px;
       position: relative;
@@ -135,6 +161,26 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+    }
+
+    .btn-download-png {
+      background: rgba(0, 229, 255, 0.15);
+      border: 1px solid var(--cyan-glow);
+      color: var(--cyan-glow);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-download-png:hover {
+      background: var(--cyan-glow);
+      color: #000;
+      box-shadow: 0 0 15px var(--cyan-glow);
     }
 
     /* Upstage Video Wall */
@@ -163,6 +209,7 @@
       justify-content: space-around;
       position: relative;
     }
+
     .truss-label {
       position: absolute;
       top: -10px;
@@ -193,6 +240,7 @@
       transition: transform 0.15s ease;
       position: relative;
     }
+
     .fixture-node:active {
       transform: scale(1.25);
     }
@@ -205,6 +253,7 @@
       padding: 0 8px;
       height: 70px;
     }
+
     .led-column {
       background: rgba(129, 140, 248, 0.25);
       border: 1px solid rgba(129, 140, 248, 0.6);
@@ -219,6 +268,7 @@
       font-weight: bold;
       color: #c7d2fe;
     }
+
     .stage-center-text {
       font-size: 1.8rem;
       font-weight: 900;
@@ -235,7 +285,12 @@
       padding-left: 12px;
       padding-right: 12px;
     }
-    .wash-node { background: #ff9800; box-shadow: 0 0 12px #ff9800; color: #000; }
+
+    .wash-node {
+      background: #ff9800;
+      box-shadow: 0 0 12px #ff9800;
+      color: #000;
+    }
 
     /* Audience Seating Grid */
     .audience-box {
@@ -246,6 +301,7 @@
       background: rgba(15, 23, 42, 0.5);
       position: relative;
     }
+
     .audience-bg-text {
       position: absolute;
       top: 50%;
@@ -257,11 +313,13 @@
       letter-spacing: 6px;
       pointer-events: none;
     }
+
     .grid-lines {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(4, 46px);
     }
+
     .grid-node {
       background: #9c27b0;
       box-shadow: 0 0 10px #9c27b0;
@@ -291,12 +349,14 @@
       flex-direction: column;
       gap: 14px;
     }
+
     .side-card {
       background: var(--panel-bg);
       border: 1px solid var(--panel-border);
       border-radius: 12px;
       padding: 14px;
     }
+
     .side-card h3 {
       font-size: 0.85rem;
       color: var(--cyan-glow);
@@ -304,6 +364,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+
     .telemetry-row {
       display: flex;
       justify-content: space-between;
@@ -312,7 +373,11 @@
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       font-family: 'JetBrains Mono', monospace;
     }
-    .telemetry-val { color: var(--cyan-glow); font-weight: bold; }
+
+    .telemetry-val {
+      color: var(--cyan-glow);
+      font-weight: bold;
+    }
 
     /* Touch-Friendly Palette Buttons */
     .palette-grid {
@@ -320,6 +385,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
+
     .palette-btn {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.18);
@@ -334,11 +400,13 @@
       gap: 8px;
       transition: all 0.15s;
     }
+
     .palette-btn:active {
       background: rgba(0, 229, 255, 0.25);
       border-color: var(--cyan-glow);
       transform: scale(0.96);
     }
+
     .palette-swatch {
       width: 16px;
       height: 16px;
@@ -347,6 +415,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- iPad Pro Header -->
@@ -371,7 +440,10 @@
     <div class="visualizer-card">
       <div class="section-title">
         <span>Venue Interactive Stage Map</span>
-        <span style="font-size: 0.75rem; color: var(--text-muted);">Tailscale Active (Cabin Node)</span>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <a href="magic_sheet_black_bg.png" download="magic_sheet_black_bg.png" class="btn-download-png">📷 Download Eos Background PNG</a>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Tailscale Active (Cabin Node)</span>
+        </div>
       </div>
 
       <div class="stage-container">
@@ -461,16 +533,36 @@
       <div class="side-card">
         <h3>Instant Color Palettes</h3>
         <div class="palette-grid">
-          <button class="palette-btn"><div class="palette-swatch" style="background:#ff0000;"></div>CP 1 Red</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#ff9100;"></div>CP 2 Orange</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#ffea00;"></div>CP 3 Yellow</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#00e676;"></div>CP 4 Green</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#00e5ff;"></div>CP 5 Cyan</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#2979ff;"></div>CP 6 Blue</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#ff007f;"></div>CP 7 Magenta</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#ffe082;"></div>CP 9 3200K</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#fff9c4;"></div>CP 10 4400K</button>
-          <button class="palette-btn"><div class="palette-swatch" style="background:#e0f7fa;"></div>CP 11 5600K</button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#ff0000;"></div>CP 1 Red
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#ff9100;"></div>CP 2 Orange
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#ffea00;"></div>CP 3 Yellow
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#00e676;"></div>CP 4 Green
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#00e5ff;"></div>CP 5 Cyan
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#2979ff;"></div>CP 6 Blue
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#ff007f;"></div>CP 7 Magenta
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#ffe082;"></div>CP 9 3200K
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#fff9c4;"></div>CP 10 4400K
+          </button>
+          <button class="palette-btn">
+            <div class="palette-swatch" style="background:#e0f7fa;"></div>CP 11 5600K
+          </button>
         </div>
       </div>
     </div>
@@ -490,8 +582,9 @@
           if (payload.data.active_cue) document.getElementById('active-cue').textContent = payload.data.active_cue;
           if (payload.data.command_line) document.getElementById('cmd-line').textContent = payload.data.command_line;
         }
-      } catch (e) {}
+      } catch (e) { }
     };
   </script>
 </body>
+
 </html>
