@@ -71,7 +71,7 @@ Wolf Logic runs over **Tailscale (WireGuard Mesh Tunnel)** across all personal d
   (Private Devices)◄─┼──• Bypasses Ship AP Client Isolation      │
                      │  • Phone on Tripod (OBS Camera Stream)   │
                      │  • Audio Console Timecode Sync            │
-                     │  • Web Magic Sheet Visualizer (Port 8888) │
+                     │  • Web Magic Sheet Visualizer (Port 1010) │
                      │  • Local AI Ingest & Analysis (Ollama)    │
                      │                                           │
                      └───────────────────────────────────────────┘
@@ -110,8 +110,8 @@ docker compose up -d
 # 2. View live streaming logs
 docker compose logs -f wolf-engine
 
-# 3. Open Magic Sheet Visualizer
-open http://localhost:8888
+# 3. Open Magic Sheet Visualizer on iPad Pro / Laptop
+open http://localhost:1010
 ```
 
 ---

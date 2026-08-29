@@ -1,14 +1,16 @@
 {
   "name": "wolf-logic-engine",
   "version": "1.0.0",
-  "description": "High-Throughput Node.js Real-Time Ingest Engine for ETC Eos, Art-Net, sACN, and Augment3d Magic Sheet",
+  "description": "High-Throughput Node.js Real-Time Ingest Engine for ETC Eos, Art-Net, sACN, Augment3d Magic Sheet & MCP Server",
   "main": "src/server.js",
   "type": "commonjs",
   "scripts": {
     "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "mcp": "node src/mcp_server.js"
   },
   "dependencies": {
+    "sqlite3": "^5.1.7",
     "ws": "^8.18.0"
   }
 }

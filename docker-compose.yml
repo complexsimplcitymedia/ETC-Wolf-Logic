@@ -25,8 +25,8 @@ services:
     depends_on:
       - ollama
     ports:
-      # Web UI & Real-time WebSocket Stream
-      - "8888:8888/tcp"
+      # Web UI & Real-time WebSocket Stream (iPad Pro Magic Sheet)
+      - "1010:1010/tcp"
       # ETC Eos OSC Ingest & Feedback Ports
       - "8000:8000/udp"
       - "8001:8001/udp"

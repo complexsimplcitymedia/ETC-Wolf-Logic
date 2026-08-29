@@ -31,8 +31,8 @@ RUN npm install --omit=dev
 # Copy application source code
 COPY . .
 
-# Expose Web/WebSocket UI (8888) and Lighting UDP Ports (8000, 8001, 9000, 6454, 5568, 58210)
-EXPOSE 8888/tcp
+# Expose Web/WebSocket UI (1010) and Lighting UDP Ports (8000, 8001, 9000, 6454, 5568, 58210)
+EXPOSE 1010/tcp
 EXPOSE 8000/udp 8001/udp 9000/udp 6454/udp 5568/udp 58210/udp
 
 # Volumes for persistent databases and exported CSV streams
@@ -40,7 +40,7 @@ VOLUME ["/app/data", "/app/csv_exports"]
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8888/ || exit 1
+  CMD curl -f http://localhost:1010/ || exit 1
 
 # Launch High-Throughput Node.js Ingest & WebSocket Visualizer Engine
 CMD ["node", "src/server.js"]

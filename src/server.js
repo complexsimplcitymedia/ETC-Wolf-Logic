@@ -24,7 +24,7 @@ const OSC_PORT = 9000;
 const ARTNET_PORT = 6454;
 const SACN_PORT = 5568;
 const MIDI_PORT = 58210;
-const WS_PORT = 8888;
+const WS_PORT = process.env.PORT || 1010;
 
 // CSV Output Paths
 const CSV_DIR = path.join(__dirname, '..', 'csv_exports');
