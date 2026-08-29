@@ -1,21 +1,30 @@
 # syntax=docker/dockerfile:1
-FROM node:20-slim
+FROM debian:bookworm-slim
 
 LABEL maintainer="Wolf Logic <d_adams1@msn.com>"
-LABEL description="Wolf Logic — Universal ETC Eos Ingest, DMX, OSC, HSI Matrix & 3D Magic Sheet Engine"
+LABEL description="Wolf Logic — Universal ETC Eos Ingest, DMX, OSC, HSI Matrix & 3D Magic Sheet Engine (Pure Debian Bookworm)"
 
 WORKDIR /app
 
-# Install Python 3, pip, and essential build tools
+# Prevent interactive prompts during apt install
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install Node.js 20 LTS, Python 3, pip, venv, curl, build-essential directly on Debian Bookworm
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    ca-certificates \
+    gnupg \
+    build-essential \
     python3 \
     python3-pip \
     python3-venv \
-    build-essential \
-    curl \
+    python3-dev \
+    sqlite3 \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y --no-install-recommends nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-# Set up Python virtual environment
+# Set up Python virtual environment on Debian
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
