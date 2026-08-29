@@ -1,7 +1,38 @@
 version: "3.8"
 
 services:
-  # Local AI Inference Engine (Ollama for Llama 3.2 Vision & Qwen 27B)
+  # 1. PostgreSQL 16 (Debian Bookworm) — Port 5433 (Superuser: postgres / User: ncl / PW: breakaway)
+  postgres:
+    image: postgres:16-bookworm
+    container_name: wolf-logic-postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: wolf_logic
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./data/postgres:/var/lib/postgresql/data
+
+  # 2. PostgREST Instant REST API Engine — Port 3000:3000
+  postgrest:
+    image: postgrest/postgrest:latest
+    container_name: wolf-logic-postgrest
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    environment:
+      PGRST_DB_URI: postgres://ncl:breakaway@postgres:5432/wolf_logic
+      PGRST_DB_SCHEMA: public
+      PGRST_DB_ANON_ROLE: ncl
+      PGRST_OPENAPI_SERVER_PROXY_URI: http://localhost:3000
+
+  # 3. Local AI Inference Engine (Ollama for Llama 3.2 Vision & Qwen 27B)
   ollama:
     image: ollama/ollama:latest
     container_name: wolf-logic-ollama
@@ -9,13 +40,12 @@ services:
     ports:
       - "11434:11434"
     volumes:
-      # Persistent local model storage on SSD
       - ./models:/root/.ollama
     environment:
       - OLLAMA_KEEP_ALIVE=24h
       - OLLAMA_NUM_PARALLEL=4
 
-  # High-Throughput Node.js Ingest, DMX Matrix & Magic Sheet Engine
+  # 4. High-Throughput Node.js Ingest, DMX Matrix & Magic Sheet Engine (Port 1010)
   wolf-engine:
     build:
       context: .
@@ -24,6 +54,7 @@ services:
     restart: unless-stopped
     depends_on:
       - ollama
+      - postgres
     ports:
       # Web UI & Real-time WebSocket Stream (iPad Pro Magic Sheet)
       - "1010:1010/tcp"
@@ -45,3 +76,4 @@ services:
       - PYTHONUNBUFFERED=1
       - WOLF_DB_PATH=/app/data/wolf_logic_telemetry.db
       - OLLAMA_HOST=http://ollama:11434/api/generate
+      - DATABASE_URL=postgres://ncl:breakaway@postgres:5432/wolf_logic
