@@ -1,87 +1,80 @@
-# Wolf Logic — ETC Eos Telemetry Blueprint
-## 🐺 Session Handoff & Architecture Blueprint
+# Wolf Logic — Dual-NIC Air-Gapped Network Architecture & Telemetry Blueprint
+## 🐺 Final Handoff Document
 
 **Date**: 2026-08-28  
 **Repository**: `https://github.com/complexsimplcitymedia/ETC-Wolf-Logic.git`  
-**Primary Deployment Platform**: **Apple Silicon M1 Max MacBook Pro (64GB Unified Memory, 400 GB/s Bandwidth)**  
-**Target Environment**: Norwegian Cruise Line Production / Live Touring  
+**Target Platform**: Apple Silicon MacBook Pro / Docker Desktop / Native macOS  
+**Target Deployment**: Norwegian Cruise Line (NCL) Main Theater & Stage Production  
 
 ---
 
-## 1. The macOS Native Advantage on M1 Max
+## 1. Dual-NIC Air-Gapped Network Topology
 
-Running natively on macOS M1 Max provides massive architectural advantages over Linux container setups:
+macOS naturally maintains strict physical separation between multiple network interfaces, ensuring the **ETC Lighting Network remains 100% air-gapped and closed**, while your personal control mesh handles device telemetry:
 
-1. **Native Native Software Ecosystem**:
-   - **Hexler Protokol**: Native macOS application running out of the box.
-   - **TouchOSC & TouchOSC Bridge**: Native macOS CoreMIDI virtual ports with zero-config routing.
-   - **ETC Eos Nomad**: Native macOS ARM64 / Universal binary.
-2. **64GB Unified Memory & 400 GB/s Bandwidth**:
-   - Both the lighting matrix and the local LLMs (QwQ 27B, Qwen 4B) and Vision models (LLaVA) sit in the **same unified memory space**.
-   - No CPU ➔ GPU PCI-e transfer bottlenecks.
-3. **CoreAudio / CoreMIDI**:
-   - Native system-level virtual MIDI cables and ultra-low-latency UDP socket polling.
-
----
-
-## 2. System Architecture
-
-```mermaid
-graph TD
-    A["ETC Eos Console (Nomad / Apex / Gio)"] -->|"Native OSC (127.0.0.1:8001)"| B["Protokol / windows_eos_relay.py"]
-    B -->|"UDP Relay (Port 9000)"| C["eos_realtime_monitor.py"]
-    C -->|"Live Parameter Streams"| D["wolf_logic_matrix.py (Spatial Matrix)"]
-    D -->|"SMPTE Timecoded Vectors"| E["wolf_logic_telemetry.db (SQLite WAL)"]
-    E -->|"Multidimensional Vector Queries"| F["Local LLM (QwQ 27B / Qwen via Ollama)"]
-    G["Workspace Video Ingest"] -->|"Timecoded Frames"| H["Vision Model (LLaVA)"]
-    H -->|"Visual Confirmation & State Validation"| E
+```
+                                  M1 MAX MACBOOK PRO
+                     ┌───────────────────────────────────────────┐
+                     │                                           │
+  AIR-GAPPED         │  [Interface 1: Gigabit Thunderbolt NIC]   │
+  LIGHTING LAN       │  • Subnet: 10.101.x.x / 255.255.0.0       │
+  (Zero Internet) ◄──┼──• Protocols: sACN E1.31, Art-Net 4,     │
+                     │    Net3, ETC Eos OSC (8000/8001)          │
+                     │  • Direct switch connection to Eos Master │
+                     │                                           │
+                     ├───────────────────────────────────────────┤
+                     │                                           │
+  SECURE TELEMETRY   │  [Interface 2: Wi-Fi / Tailscale Mesh]    │
+  & AI CONTROL       │  • Subnet: 100.x.x.x (Encrypted Mesh)     │
+  (Private Devices)◄─┼──• Phone on Tripod (OBS Camera Stream)   │
+                     │  • FOH Audio Console Timecode Sync        │
+                     │  • Web Magic Sheet Visualizer (Port 8888) │
+                     │  • Local AI Ingest & Analysis (Ollama)    │
+                     │                                           │
+                     └───────────────────────────────────────────┘
 ```
 
----
-
-## 3. Core Engine Components Built
-
-### ✅ Multidimensional Spatial Matrix (`wolf_logic_matrix.py`)
-- Represents fixtures across 2,560 dimensions with SMPTE timecode (`HH:MM:SS:FF`).
-- High-dimensional attributes: `[Intensity, Pan, Tilt, Red, Green, Blue, White, Amber, Zoom, Iris, Gobo, Focus, Shutter]`.
-- Built-in spatial math: 3D RGB Color Rotation Matrices, Pan/Tilt coordinate inversion, and rig symmetry transformations.
-
-### ✅ Unified Telemetry Ingest Engine (`wolf_logic_db.py`)
-- SQLite database (`wolf_logic_telemetry.db`) running in high-speed WAL mode.
-- Tables: `console_events`, `cue_executions`, `command_history`, `channel_snapshots`, `patch_data`, `sessions`.
-
-### ✅ Real-Time Telemetry Monitor (`eos_realtime_monitor.py`)
-- Live UDP monitor daemon writing real-time console snapshots to `live_eos_state.json`.
-
-### ✅ Protocol Converter & Diagnostic Suite
-- `artnet_to_osc_bridge.py`: Art-Net DMX → ETC Eos OSC converter with delta filtering.
-- `dmx_tool.py`: sACN (ANSI E1.31) and Art-Net 4 transmission and listening utility.
-- `test_midi.py`: TouchOSC Bridge MIDI packet monitor.
-- `test_osc.py`: Bidirectional Eos OSC diagnostic tool.
-- `windows_eos_relay.py`: Local Windows host relay for isolated lighting networks.
-
-### ✅ Cross-Platform Deployment
-- **Docker**: `Dockerfile` + `docker-compose.yml` with host networking.
-- **Conda**: `environment.yml` for native macOS `(wolfetc)` environment.
+### Key Security & Routing Rules:
+1. **Never Bridge the Subnets**: macOS routing ensures broadcast/multicast DMX packets (sACN/Art-Net) stay strictly on the physical Ethernet lighting switch and never leak to Wi-Fi or Tailscale.
+2. **Deterministic Console Communication**: Eos Nomad talks directly to the master lighting desk on the air-gapped lighting network without interference.
+3. **Total Telemetry Freedom**: Your phone camera, OBS stream, and Wolf Logic AI models sync over your private device mesh without touching ship guest/crew networks.
 
 ---
 
-## 4. Quick Start on M1 Max MacBook Pro
+## 2. Complete Component Manifest
+
+| Component | File / Script | Purpose |
+| :--- | :--- | :--- |
+| **High-Speed Ingest Server** | [`src/server.js`](file:///mnt/wolf-thumb/ETC-Wolf/src/server.js) | Node.js UDP sockets for OSC, Art-Net, sACN, MIDI |
+| **3D Magic Sheet Visualizer**| [`public/magicsheet.html`](file:///mnt/wolf-thumb/ETC-Wolf/public/magicsheet.html) | WebSocket visualizer matching your stage layout |
+| **Universal HSI Matrix** | [`scripts/wolf_logic_matrix.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_logic_matrix.py) | 2,560-dimension spatial vector in SQLite WAL |
+| **Color Temperature Calibration** | [`scripts/wolf_effect_engine.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_effect_engine.py) | 3200K Tungsten, 4400K Cool White, 5600K Daylight Raw |
+| **Universal Gel Library** | [`scripts/wolf_gel_library.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_gel_library.py) | Pre-loaded Roscolux, Lee, and CT gel library |
+| **Live Eos Palette Builder** | [`scripts/build_eos_palettes.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/build_eos_palettes.py) | Programs CP 1-11 & CP 101-114 into Eos showfile |
+| **NCL Fleet Fixture Catalog**| [`scripts/wolf_ncl_fixture_library.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_ncl_fixture_library.py) | Claypaky, Vari-Lite, Robe, Proteus, ETC profiles |
+| **Unpatched Rig CSV** | [`csv_exports/ncl_rig_inventory_unpatched.csv`](file:///mnt/wolf-thumb/ETC-Wolf/csv_exports/ncl_rig_inventory_unpatched.csv) | 120 unpatched fleet fixtures template |
+| **3D Augment3d Coordinates** | [`scripts/wolf_augment3d_magicsheet.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_augment3d_magicsheet.py) | Exact XYZ stage metric coordinates |
+| **Audio Timecode Sync** | [`scripts/wolf_timecode_sync.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_timecode_sync.py) | Audio console OSC & SMPTE timecode sync |
+| **OBS Vision Calibration** | [`scripts/wolf_vision_calibration.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_vision_calibration.py) | Phone camera rehearsal frame-by-frame mapping |
+| **Local Vision Client** | [`scripts/wolf_local_vision.py`](file:///mnt/wolf-thumb/ETC-Wolf/.agents/skills/etc-osc-bridge/scripts/wolf_local_vision.py) | Llama 3.2 Vision (11B) & LLaVA (13B) Ollama client |
+| **Docker Desktop Stack** | [`Dockerfile`](file:///mnt/wolf-thumb/ETC-Wolf/Dockerfile), [`docker-compose.yml`](file:///mnt/wolf-thumb/ETC-Wolf/docker-compose.yml) | Multi-arch turnkey containerization |
+| **1-Hour Port Bootstrap** | [`scripts/port_turnaround_bootstrap.sh`](file:///mnt/wolf-thumb/ETC-Wolf/scripts/port_turnaround_bootstrap.sh) | Parallel offline model & container caching script |
+
+---
+
+## 3. Quick Start (Docker Desktop)
 
 ```bash
-# Clone the central repository
-git clone https://github.com/complexsimplcitymedia/ETC-Wolf-Logic.git
-cd ETC-Wolf-Logic
-
-# Option A: Native Conda Environment
-conda env create -f environment.yml
-conda activate wolfetc
-python .agents/skills/etc-osc-bridge/scripts/eos_realtime_monitor.py --port 9000
-
-# Option B: Docker Stack
+# 1. Start the entire Wolf Logic engine
 docker compose up -d
+
+# 2. View live streaming logs
+docker compose logs -f wolf-engine
+
+# 3. Open Magic Sheet Visualizer
+open http://localhost:8888
 ```
 
 ---
 
-*🐺 Wolf Logic — Rigged once. Understood in 2,560 dimensions.*
+*🐺 Wolf Logic — Rigged once. Air-gapped, unified, and understood in 2,560 dimensions.*
