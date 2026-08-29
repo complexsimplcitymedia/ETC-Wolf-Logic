@@ -1,18 +1,29 @@
 version: "3.8"
 
 services:
-  wolf-bridge:
+  wolf-engine:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: wolf-logic-bridge
+    container_name: wolf-logic-engine
     restart: unless-stopped
-    # Use host networking on Linux/macOS for native UDP multicast & broadcast
-    network_mode: "host"
+    ports:
+      # Web Visualizer & Real-time WebSocket Stream
+      - "8888:8888/tcp"
+      # ETC Eos OSC Ingest & Feedback Ports
+      - "8000:8000/udp"
+      - "8001:8001/udp"
+      - "9000:9000/udp"
+      # DMX over IP Protocols (Art-Net 4 & sACN E1.31)
+      - "6454:6454/udp"
+      - "5568:5568/udp"
+      # TouchOSC Bridge MIDI Port
+      - "58210:58210/udp"
     volumes:
       - ./data:/app/data
+      - ./csv_exports:/app/csv_exports
       - ./.agents:/app/.agents
     environment:
+      - NODE_ENV=production
       - PYTHONUNBUFFERED=1
       - WOLF_DB_PATH=/app/data/wolf_logic_telemetry.db
-    command: ["python", ".agents/skills/etc-osc-bridge/scripts/eos_realtime_monitor.py", "--port", "9000"]
