@@ -1,0 +1,121 @@
+Fixture_Index,Unit_Number,Manufacturer,Fixture_Type,Default_Mode,DMX_Channels,Color_Mixing_Engine,Category,Pan_Range,Tilt_Range,Deployment_Venue,Channel_Number,DMX_Universe,DMX_Address,Label_Notes
+1,01,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #1
+2,02,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #2
+3,03,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #3
+4,04,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #4
+5,05,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #5
+6,06,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #6
+7,07,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #7
+8,08,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #8
+9,09,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #9
+10,10,Claypaky,Claypaky Sharpy,Standard 16ch,16,Color_Wheel,Beam,540 deg,250 deg,Stardust Theater / Nightclubs,,,,Claypaky Sharpy #10
+11,01,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #1
+12,02,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #2
+13,03,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #3
+14,04,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #4
+15,05,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #5
+16,06,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #6
+17,07,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #7
+18,08,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #8
+19,09,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #9
+20,10,Claypaky,Claypaky HY B-Eye K15,Standard 35ch,35,RGBW Matrix,Wash / Effect,540 deg,210 deg,Prima Theater / Sensoria Nightclub,,,,Claypaky HY B-Eye K15 #10
+21,01,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #1
+22,02,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #2
+23,03,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #3
+24,04,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #4
+25,05,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #5
+26,06,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #6
+27,07,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #7
+28,08,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #8
+29,09,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #9
+30,10,Claypaky,Claypaky Arolla Aqua LT,Standard 38ch,38,CMY + Linear CTO,Profile / Spot (IP66 Marine),540 deg,270 deg,Top Deck / Glow Parties / Aqua Park,,,,Claypaky Arolla Aqua LT #10
+31,01,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #1
+32,02,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #2
+33,03,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #3
+34,04,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #4
+35,05,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #5
+36,06,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #6
+37,07,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #7
+38,08,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #8
+39,09,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #9
+40,10,Claypaky,Claypaky Sinfonya Profile HP,Standard 44ch,44,RGBAL Engine,Theatrical Framing Profile,540 deg,270 deg,Main Stage Broadway Productions,,,,Claypaky Sinfonya Profile HP #10
+41,01,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #1
+42,02,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #2
+43,03,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #3
+44,04,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #4
+45,05,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #5
+46,06,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #6
+47,07,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #7
+48,08,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #8
+49,09,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #9
+50,10,Vari-Lite,Vari-Lite VL3600 Profile IP,Standard 45ch,45,CMY + Linear CTO,Heavy-Duty Framing Profile (IP65),540 deg,270 deg,Main Stage (Beetlejuice / Choir of Man),,,,Vari-Lite VL3600 Profile IP #10
+51,01,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #1
+52,02,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #2
+53,03,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #3
+54,04,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #4
+55,05,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #5
+56,06,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #6
+57,07,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #7
+58,08,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #8
+59,09,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #9
+60,10,Vari-Lite,Vari-Lite VL1600 Profile,Standard 36ch,36,Tunable White + CMY,Theatrical Key Profile (High CRI),540 deg,270 deg,Front of House Theatrical Key,,,,Vari-Lite VL1600 Profile #10
+61,01,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #1
+62,02,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #2
+63,03,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #3
+64,04,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #4
+65,05,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #5
+66,06,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #6
+67,07,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #7
+68,08,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #8
+69,09,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #9
+70,10,Robe,Robe MegaPointe,Mode 1 (39ch),39,CMY + Color Wheel,Hybrid Beam / Spot / FX,540 deg,270 deg,Concert Stage / Rock & Pop Shows,,,,Robe MegaPointe #10
+71,01,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #1
+72,02,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #2
+73,03,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #3
+74,04,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #4
+75,05,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #5
+76,06,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #6
+77,07,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #7
+78,08,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #8
+79,09,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #9
+80,10,Robe,Robe Spiider,Mode 1 (27ch),27,RGBW + Flower FX,LED Wash / Beam / Flower,540 deg,230 deg,Overhead Wash Grid / Lounges,,,,Robe Spiider #10
+81,01,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #1
+82,02,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #2
+83,03,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #3
+84,04,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #4
+85,05,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #5
+86,06,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #6
+87,07,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #7
+88,08,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #8
+89,09,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #9
+90,10,Elation,Elation Proteus Maximus,Standard 47ch,47,CMY + Linear CTO,Ultra-High Output IP65 Marine,540 deg,270 deg,Pool Deck / Outdoor Funnel Glow,,,,Elation Proteus Maximus #10
+91,01,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #1
+92,02,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #2
+93,03,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #3
+94,04,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #4
+95,05,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #5
+96,06,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #6
+97,07,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #7
+98,08,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #8
+99,09,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #9
+100,10,Elation,Elation Proteus Hybrid,Standard 28ch,28,CMY + Color Wheel,IP65 Marine Beam / Spot,540 deg,240 deg,Top Deck Concerts & Pool Stages,,,,Elation Proteus Hybrid #10
+101,01,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #1
+102,02,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #2
+103,03,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #3
+104,04,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #4
+105,05,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #5
+106,06,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #6
+107,07,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #7
+108,08,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #8
+109,09,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #9
+110,10,ETC,ETC ColorSource Spot V,Standard 8ch,8,5-Color (RGB-Lime-Indigo),Static LED Theatrical Profile,Static (0 deg),Static (0 deg),Atriums & Theatrical Overheads,,,,ETC ColorSource Spot V #10
+111,01,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #1
+112,02,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #2
+113,03,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #3
+114,04,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #4
+115,05,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #5
+116,06,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #6
+117,07,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #7
+118,08,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #8
+119,09,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #9
+120,10,ETC,ETC Source Four LED Series 3,Direct 10ch (Lustr X8),10,Lustr X8 Array (7-Color),Theatrical Flagship Profile,Static (0 deg),Static (0 deg),Main Stage Front of House Key,,,,ETC Source Four LED Series 3 #10
