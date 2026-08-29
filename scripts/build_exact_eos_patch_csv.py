@@ -1,33 +1,57 @@
 #!/usr/bin/env python3
 """
 Wolf Logic — Master ETC Eos Native Structured Patch CSV Generator
-Replicates the exact table format, block delimiters (START_CHANNELS / END_CHANNELS),
-and column headers exported directly by ETC Eos from the master showfile 'ETC Wolf'.
+Assigns model-matched channel numbers to all 120 NCL fixtures so ETC Eos
+imports every single channel directly into the patch!
 """
 
-import csv
 import os
 
-# Exact 12 NCL Fleet Fixtures (10 units each = 120 fixtures)
+# Exact 12 NCL Fleet Fixtures with model-matched Channel Ranges
 NCL_FIXTURES = [
-    {"manuf": "Clay_Paky", "type": "Sharpy_Standard", "label": "Claypaky Sharpy"},
-    {"manuf": "Clay_Paky", "type": "HY_B-Eye_K15_Standard", "label": "Claypaky HY B-Eye K15"},
-    {"manuf": "Clay_Paky", "type": "Arolla_Aqua_LT_Standard", "label": "Claypaky Arolla Aqua LT IP66"},
-    {"manuf": "Clay_Paky", "type": "Sinfonya_Profile_Standard", "label": "Claypaky Sinfonya Profile"},
-    {"manuf": "Vari*Lite", "type": "VL3600_Profile_IP_Standard", "label": "Vari-Lite VL3600 Profile IP"},
-    {"manuf": "Vari*Lite", "type": "VL1600_Profile_Standard", "label": "Vari-Lite VL1600 Profile"},
-    {"manuf": "Robe", "type": "MegaPointe_Standard", "label": "Robe MegaPointe"},
-    {"manuf": "Robe", "type": "Spiider_Standard", "label": "Robe Spiider"},
-    {"manuf": "Elation", "type": "Proteus_Maximus_Standard", "label": "Elation Proteus Maximus IP65"},
-    {"manuf": "Elation", "type": "Proteus_Hybrid_Standard", "label": "Elation Proteus Hybrid IP65"},
-    {"manuf": "ETC", "type": "ColorSource_Spot_V_Direct", "label": "ETC ColorSource Spot V"},
-    {"manuf": "ETC", "type": "Source_Four_LED_Series_3_Lustr_X8", "label": "ETC Source Four LED Series 3"},
+    # 1. Claypaky Sharpy Beam (Ch 301 - 310)
+    {"start_ch": 301, "manuf": "Clay_Paky", "type": "Sharpy_Standard", "label": "Claypaky Sharpy"},
+    
+    # 2. Robe MegaPointe (Ch 401 - 410)
+    {"start_ch": 401, "manuf": "Robe", "type": "MegaPointe_Standard", "label": "Robe MegaPointe"},
+    
+    # 3. Robe Spiider Wash (Ch 501 - 510)
+    {"start_ch": 501, "manuf": "Robe", "type": "Spiider_Standard", "label": "Robe Spiider"},
+    
+    # 4. Elation Proteus Maximus IP65 (Ch 601 - 610)
+    {"start_ch": 601, "manuf": "Elation", "type": "Proteus_Maximus_Standard", "label": "Elation Proteus Maximus IP65"},
+    
+    # 5. Elation Proteus Hybrid IP65 (Ch 701 - 710)
+    {"start_ch": 701, "manuf": "Elation", "type": "Proteus_Hybrid_Standard", "label": "Elation Proteus Hybrid IP65"},
+    
+    # 6. ETC ColorSource Spot V (Ch 801 - 810)
+    {"start_ch": 801, "manuf": "ETC", "type": "ColorSource_Spot_V_Direct", "label": "ETC ColorSource Spot V"},
+    
+    # 7. ETC Source Four LED Series 3 Lustr X8 (Ch 901 - 910)
+    {"start_ch": 901, "manuf": "ETC", "type": "Source_Four_LED_Series_3_Lustr_X8", "label": "ETC Source Four Series 3"},
+    
+    # 8. Claypaky HY B-Eye K15 (Ch 1501 - 1510 for K15!)
+    {"start_ch": 1501, "manuf": "Clay_Paky", "type": "HY_B-Eye_K15_Standard", "label": "Claypaky HY B-Eye K15"},
+    
+    # 9. Vari-Lite VL1600 Profile (Ch 1601 - 1610 for 1600!)
+    {"start_ch": 1601, "manuf": "Vari*Lite", "type": "VL1600_Profile_Standard", "label": "Vari-Lite VL1600 Profile"},
+    
+    # 10. Claypaky Arolla Aqua LT IP66 (Ch 1801 - 1810)
+    {"start_ch": 1801, "manuf": "Clay_Paky", "type": "Arolla_Aqua_LT_Standard", "label": "Claypaky Arolla Aqua LT IP66"},
+    
+    # 11. Claypaky Sinfonya Profile (Ch 1901 - 1910)
+    {"start_ch": 1901, "manuf": "Clay_Paky", "type": "Sinfonya_Profile_Standard", "label": "Claypaky Sinfonya Profile"},
+    
+    # 12. Vari-Lite VL3600 Profile IP (Ch 3601 - 3610 for 3600!)
+    {"start_ch": 3601, "manuf": "Vari*Lite", "type": "VL3600_Profile_IP_Standard", "label": "Vari-Lite VL3600 Profile IP"},
 ]
 
-OUTPUT_FILE = "/mnt/wolf-thumb/ETC-Wolf/csv/ETC_Wolf_Master_Patch.csv"
+OUTPUT_FILES = [
+    "/mnt/wolf-thumb/ETC-Wolf/csv/ETC_Wolf_Master_Patch.csv",
+    "/mnt/wolf-thumb/ETC-Wolf/csv/eos_patch_ncl_inventory.csv"
+]
 
 def generate_exact_patch():
-    # Exact header from ETC_Wolf.csv line 51
     header_cols = [
         "CHANNEL", "FIXTURE_TYPE", "MANUFACTURER", "FIXTURE_DCID", "SOURCE_DCID",
         "PATCH_DCID", "ADDRESS", "LABEL", "PROPORTION", "CURVE", "GEL", "NOTES",
@@ -35,14 +59,13 @@ def generate_exact_patch():
         "TEXT9", "TEXT10", "LOCATION_X", "LOCATION_Y", "LOCATION_Z", "ORIENTATION_X",
         "ORIENTATION_Y", "ORIENTATION_Z", "PROCESSOR"
     ]
-    # In ETC_Wolf.csv, header line ends with 8 trailing commas
     header_line = ",".join(header_cols) + ",,,,,,,,"
 
     lines = []
     lines.append("START_CHANNELS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
     lines.append(header_line)
 
-    # 1. Preserve your 10 existing patched Sharpy Wash 330s (Channels 3301 - 3310)
+    # 1. Existing Patched Sharpy Wash 330s (Channels 3301 - 3310 on Universe 1)
     for i in range(1, 11):
         ch = 3300 + i
         addr_start = 1 + ((i - 1) * 18)
@@ -62,21 +85,22 @@ def generate_exact_patch():
         ]
         lines.append(",".join(row) + ",,,,,,,,")
 
-    # 2. Add 120 Unpatched NCL Fleet Fixtures (10 of each model)
-    # Channel and Address are left 100% BLANK as requested!
-    unit_total = 0
+    # 2. Numbered NCL Fleet Fixtures (120 units with model-based channel numbers)
+    # ADDRESS is left unpatched so you can soft-patch universes at will!
+    total_added = 0
     for fix in NCL_FIXTURES:
-        for u in range(1, 11):
-            unit_total += 1
+        for u in range(10):
+            ch_num = fix["start_ch"] + u
+            total_added += 1
             row = [
-                "",                         # CHANNEL (Blank for custom user assignment)
-                fix["type"],                # FIXTURE_TYPE matching Eos library
-                fix["manuf"],               # MANUFACTURER matching Eos library
+                str(ch_num),                # CHANNEL (Numbered directly by model!)
+                fix["type"],                # FIXTURE_TYPE
+                fix["manuf"],               # MANUFACTURER
                 "",                         # FIXTURE_DCID
                 "",                         # SOURCE_DCID
                 "",                         # PATCH_DCID
-                "",                         # ADDRESS (Blank for custom user assignment)
-                f"{fix['label']} #{u:02d}", # LABEL
+                "",                         # ADDRESS (Unaddressed / soft-patchable in Eos)
+                f"{fix['label']} #{u+1:02d}", # LABEL
                 "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                 "", "", "", "", "", "", ""
             ]
@@ -84,12 +108,15 @@ def generate_exact_patch():
 
     lines.append("END_CHANNELS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8", newline="\r\n") as f:
-        f.write("\r\n".join(lines) + "\r\n")
+    content = "\r\n".join(lines) + "\r\n"
+    for out_path in OUTPUT_FILES:
+        os.makedirs(os.path.dirname(out_path), exist_ok=True)
+        with open(out_path, "w", encoding="utf-8", newline="\r\n") as f:
+            f.write(content)
+        print(f"✓ Numbered Eos Patch CSV exported to: {out_path}")
 
-    print(f"✓ Master ETC Eos Patch CSV created with exact table format at: {OUTPUT_FILE}")
     print(f"  • Existing Patched Sharpy 330s: 10 units (Ch 3301-3310)")
-    print(f"  • Unpatched NCL Fleet Fixtures: {unit_total} units (Blank Channel & Blank DMX)")
+    print(f"  • Numbered NCL Fleet Fixtures: {total_added} units (Ch 301-3610)")
 
 if __name__ == "__main__":
     generate_exact_patch()
