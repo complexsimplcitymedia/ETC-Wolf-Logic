@@ -93,24 +93,51 @@ def create_magic_sheet_png(output_path, width=1920, height=1080):
         draw.ellipse([(wx - 18, pros_y - 18), (wx + 18, pros_y + 18)], outline=AMBER, width=2)
         draw.text((wx - 12, pros_y - 8), f"{201+i}", fill=AMBER)
 
-    # 5. AUDIENCE SEATING 4x4 GRID
+    # 5. AUDIENCE SEATING — OVERHEAD GLOWING LED LINEAR STRIPS (GRID)
     aud_w = 900
     aud_h = 340
     aud_x0 = (width - aud_w) // 2
     aud_y0 = 550
-    draw.rectangle([(aud_x0, aud_y0), (aud_x0 + aud_w, aud_y0 + aud_h)], outline=GRID_BORDER, width=2)
-    draw.text((width // 2 - 140, aud_y0 + 150), "AUDIENCE SEATING", fill=WHITE_FAINT)
+    draw.rectangle([(aud_x0, aud_y0), (aud_x0 + aud_w, aud_y0 + aud_h)], outline=CYAN_DIM, width=2)
+    draw.text((width // 2 - 200, aud_y0 + 160), "OVERHEAD LED LINEAR STRIPS & SEATING", fill=WHITE_FAINT)
 
-    # 4x4 Grid Points (Ch 401 - 416)
-    cell_w = aud_w // 4
-    cell_h = aud_h // 4
-    for row in range(4):
-        for col in range(4):
-            ch_num = 401 + (row * 4) + col
-            gx = aud_x0 + (col * cell_w) + (cell_w // 2)
-            gy = aud_y0 + (row * cell_h) + (cell_h // 2)
-            draw.rectangle([(gx - 16, gy - 16), (gx + 16, gy + 16)], outline=CYAN, width=1)
-            draw.text((gx - 12, gy - 7), f"{ch_num}", fill=CYAN)
+    # 4 Vertical LED Linear Strip Lines
+    vert_cols = [aud_x0 + int(aud_w * 0.15), aud_x0 + int(aud_w * 0.38), 
+                 aud_x0 + int(aud_w * 0.62), aud_x0 + int(aud_w * 0.85)]
+    for vx in vert_cols:
+        draw.line([(vx, aud_y0), (vx, aud_y0 + aud_h)], fill=(0, 229, 255, 100), width=3)
+
+    # 5 Horizontal Overhead Glowing LED Linear Strips (Alternating Cyan & Magenta)
+    strip_colors = [
+        (0, 229, 255, 255),    # 1. Cyan
+        (255, 0, 127, 255),    # 2. Magenta
+        (0, 229, 255, 255),    # 3. Cyan
+        (255, 0, 127, 255),    # 4. Magenta
+        (0, 229, 255, 255),    # 5. Cyan
+    ]
+    h_step = aud_h // 4
+    for s_idx, scolor in enumerate(strip_colors):
+        sy = aud_y0 + (s_idx * (aud_h // 5)) + 30
+        if s_idx == 4:
+            sy = aud_y0 + aud_h - 20
+        # Draw thick glowing linear LED strip
+        draw.line([(aud_x0 + 10, sy), (aud_x0 + aud_w - 10, sy)], fill=scolor, width=6)
+
+    # FOH Overhead Moving Head Spot Nodes at Grid Intersections (Ch 401 - 416)
+    mover_rows = [aud_y0 + 30, aud_y0 + 100, aud_y0 + 170, aud_y0 + 240]
+    RED_MOVER = (255, 23, 68, 255)
+    for r_idx, my in enumerate(mover_rows):
+        for c_idx, mx in enumerate(vert_cols):
+            ch_num = 401 + (r_idx * 4) + c_idx
+            # Red moving head circle with white border
+            draw.ellipse([(mx - 15, my - 15), (mx + 15, my + 15)], fill=RED_MOVER, outline=(255, 255, 255, 255), width=2)
+            draw.text((mx - 11, my - 7), f"{ch_num}", fill=(255, 255, 255, 255))
+
+    # Centerline Specials (Ch 501, 502, 503)
+    center_x = width // 2
+    for s_idx, spy in enumerate([aud_y0 + 30, aud_y0 + 170, aud_y0 + aud_h - 20]):
+        draw.ellipse([(center_x - 15, spy - 15), (center_x + 15, spy + 15)], fill=(255, 214, 0, 255), outline=(255, 255, 255, 255), width=2)
+        draw.text((center_x - 11, spy - 7), f"{501+s_idx}", fill=(0, 0, 0, 255))
 
     # 6. FOH MIX & LIGHTING CONTROL STATION
     foh_w = 400

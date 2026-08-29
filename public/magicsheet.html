@@ -292,14 +292,15 @@
       color: #000;
     }
 
-    /* Audience Seating Grid */
+    /* Audience Seating - Overhead LED Linear Strips Grid */
     .audience-box {
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      border-radius: 10px;
-      padding: 16px;
+      border: 1px solid rgba(0, 229, 255, 0.4);
+      border-radius: 12px;
+      padding: 20px 16px;
       margin-top: 14px;
-      background: rgba(15, 23, 42, 0.5);
+      background: radial-gradient(circle at 50% 50%, rgba(20, 10, 35, 0.7) 0%, rgba(0, 0, 0, 0.95) 80%);
       position: relative;
+      overflow: hidden;
     }
 
     .audience-bg-text {
@@ -307,26 +308,81 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 900;
-      color: rgba(255, 255, 255, 0.06);
-      letter-spacing: 6px;
+      color: rgba(255, 255, 255, 0.05);
+      letter-spacing: 8px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    /* Overhead LED Linear Strips Container */
+    .ceiling-strips-grid {
+      position: relative;
+      height: 300px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Horizontal Glowing LED Linear Strips (Alternating Cyan & Magenta) */
+    .led-strip-h {
+      height: 8px;
+      border-radius: 4px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+    .strip-cyan {
+      background: #00e5ff;
+      box-shadow: 0 0 16px #00e5ff, 0 0 30px rgba(0, 229, 255, 0.6);
+    }
+    .strip-magenta {
+      background: #ff007f;
+      box-shadow: 0 0 16px #ff007f, 0 0 30px rgba(255, 0, 127, 0.6);
+    }
+
+    /* Vertical LED Linear Strips */
+    .vertical-strip-guide {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+      z-index: 1;
       pointer-events: none;
     }
 
-    .grid-lines {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(4, 46px);
+    /* FOH Moving Head Nodes at Grid Intersections */
+    .foh-mover-node {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ff1744;
+      border: 2px solid #ffffff;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: bold;
+      box-shadow: 0 0 16px #ff1744;
+      cursor: pointer;
+      z-index: 5;
+      transition: transform 0.15s ease;
     }
-
-    .grid-node {
-      background: #9c27b0;
-      box-shadow: 0 0 10px #9c27b0;
-      margin: auto;
-      color: #fff;
-      width: 28px;
-      height: 28px;
+    .foh-mover-node:active {
+      transform: scale(1.3);
+    }
+    .special-mover-node {
+      background: #ffd600;
+      color: #000;
+      box-shadow: 0 0 16px #ffd600;
     }
 
     /* FOH Station */
@@ -484,26 +540,55 @@
           <div class="fixture-node wash-node">208</div>
         </div>
 
-        <!-- Audience Seating 4x4 Grid -->
+        <!-- Audience Seating: Overhead Glowing LED Linear Strips & Moving Heads -->
         <div class="audience-box">
-          <div class="audience-bg-text">AUDIENCE SEATING</div>
-          <div class="grid-lines">
-            <div class="fixture-node grid-node">401</div>
-            <div class="fixture-node grid-node">402</div>
-            <div class="fixture-node grid-node">403</div>
-            <div class="fixture-node grid-node">404</div>
-            <div class="fixture-node grid-node">405</div>
-            <div class="fixture-node grid-node">406</div>
-            <div class="fixture-node grid-node">407</div>
-            <div class="fixture-node grid-node">408</div>
-            <div class="fixture-node grid-node">409</div>
-            <div class="fixture-node grid-node">410</div>
-            <div class="fixture-node grid-node">411</div>
-            <div class="fixture-node grid-node">412</div>
-            <div class="fixture-node grid-node">413</div>
-            <div class="fixture-node grid-node">414</div>
-            <div class="fixture-node grid-node">415</div>
-            <div class="fixture-node grid-node">416</div>
+          <div class="audience-bg-text">AUDIENCE SEATING & OVERHEAD LED STRIPS</div>
+          
+          <div class="ceiling-strips-grid">
+            <!-- 4 Vertical LED Linear Strip Guides -->
+            <div class="vertical-strip-guide" style="left: 12%;"></div>
+            <div class="vertical-strip-guide" style="left: 37%;"></div>
+            <div class="vertical-strip-guide" style="left: 63%;"></div>
+            <div class="vertical-strip-guide" style="left: 88%;"></div>
+
+            <!-- Horizontal LED Strip 1 (Cyan) -->
+            <div class="led-strip-h strip-cyan">
+              <div class="foh-mover-node" title="FOH Mover Ch 401">401</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 402">402</div>
+              <div class="foh-mover-node special-mover-node" title="Centerline Special Ch 501">501</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 403">403</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 404">404</div>
+            </div>
+
+            <!-- Horizontal LED Strip 2 (Magenta) -->
+            <div class="led-strip-h strip-magenta">
+              <div class="foh-mover-node" title="FOH Mover Ch 405">405</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 406">406</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 407">407</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 408">408</div>
+            </div>
+
+            <!-- Horizontal LED Strip 3 (Cyan) -->
+            <div class="led-strip-h strip-cyan">
+              <div class="foh-mover-node" title="FOH Mover Ch 409">409</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 410">410</div>
+              <div class="foh-mover-node special-mover-node" title="Centerline Special Ch 502">502</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 411">411</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 412">412</div>
+            </div>
+
+            <!-- Horizontal LED Strip 4 (Magenta) -->
+            <div class="led-strip-h strip-magenta">
+              <div class="foh-mover-node" title="FOH Mover Ch 413">413</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 414">414</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 415">415</div>
+              <div class="foh-mover-node" title="FOH Mover Ch 416">416</div>
+            </div>
+
+            <!-- Horizontal LED Strip 5 (Cyan) -->
+            <div class="led-strip-h strip-cyan">
+              <div class="foh-mover-node special-mover-node" title="Centerline Special Ch 503" style="margin: auto;">503</div>
+            </div>
           </div>
         </div>
 
