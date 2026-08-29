@@ -67,6 +67,9 @@ services:
       - "5568:5568/udp"
       # TouchOSC Bridge MIDI Port
       - "58210:58210/udp"
+      # ETC Eos UDP String RX (4703) & TX (4704)
+      - "4703:4703/udp"
+      - "4704:4704/udp"
     volumes:
       - ./data:/app/data
       - ./csv_exports:/app/csv_exports

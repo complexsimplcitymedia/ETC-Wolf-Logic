@@ -24,6 +24,8 @@ const OSC_PORT = 9000;
 const ARTNET_PORT = 6454;
 const SACN_PORT = 5568;
 const MIDI_PORT = 58210;
+const UDP_STRING_RX_PORT = 4704; // Ingest strings sent from Eos TX
+const UDP_STRING_TX_PORT = 4703; // Target port for sending strings to Eos RX
 const WS_PORT = process.env.PORT || 1010;
 
 // CSV Output Paths
@@ -242,6 +244,14 @@ midiSocket.on('message', (msg, rinfo) => {
   }
 });
 midiSocket.bind(MIDI_PORT, () => console.log(`[+] Node.js TouchOSC MIDI Ingest listening on UDP port ${MIDI_PORT}`));
+
+// 4. ETC Eos UDP String Ingest (UDP 4704)
+const stringSocket = dgram.createSocket('udp4');
+stringSocket.on('message', (msg, rinfo) => {
+  const str = msg.toString('utf8').trim();
+  logEvent('UDP-String', rinfo.address, 'Eos-String-TX', '', '', '', '', str);
+});
+stringSocket.bind(UDP_STRING_RX_PORT, () => console.log(`[+] Node.js ETC Eos UDP String Ingest listening on UDP port ${UDP_STRING_RX_PORT}`));
 
 // Start Web & WebSocket Server
 server.listen(WS_PORT, () => {

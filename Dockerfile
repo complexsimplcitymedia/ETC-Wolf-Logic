@@ -40,9 +40,9 @@ RUN npm install --omit=dev
 # Copy application source code
 COPY . .
 
-# Expose Web/WebSocket UI (1010) and Lighting UDP Ports (8000, 8001, 9000, 6454, 5568, 58210)
+# Expose Web/WebSocket UI (1010) and Lighting UDP Ports (8000, 8001, 9000, 6454, 5568, 58210, 4703, 4704)
 EXPOSE 1010/tcp
-EXPOSE 8000/udp 8001/udp 9000/udp 6454/udp 5568/udp 58210/udp
+EXPOSE 8000/udp 8001/udp 9000/udp 6454/udp 5568/udp 58210/udp 4703/udp 4704/udp
 
 # Volumes for persistent databases and exported CSV streams
 VOLUME ["/app/data", "/app/csv_exports"]

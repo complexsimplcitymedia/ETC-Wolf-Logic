@@ -15,11 +15,36 @@ const sqlite3 = require('sqlite3');
 const path = require('path');
 const fs = require('fs');
 
-const EOS_IP = process.env.EOS_IP || '10.0.0.247';
+const EOS_IP = process.env.EOS_IP || '100.110.82.103';
 const EOS_PORT = parseInt(process.env.EOS_PORT || '8000', 10);
+const EOS_UDP_STRING_PORT = parseInt(process.env.EOS_STRING_PORT || '4703', 10);
 const DB_PATH = process.env.WOLF_DB_PATH || path.join(__dirname, '..', 'data', 'wolf_logic_telemetry.db');
 
 const oscClient = dgram.createSocket('udp4');
+
+function sendOscAddressOnly(address) {
+  return new Promise((resolve, reject) => {
+    const addrBuf = Buffer.from(address + '\0');
+    const rem = addrBuf.length % 4;
+    const pad = rem === 0 ? 0 : 4 - rem;
+    const packet = Buffer.concat([addrBuf, Buffer.alloc(pad), Buffer.from(',\0\0\0')]);
+    oscClient.send(packet, EOS_PORT, EOS_IP, (err) => {
+      if (err) reject(err);
+      else resolve(`Sent: ${address} to ${EOS_IP}:${EOS_PORT}`);
+    });
+  });
+}
+
+function sendUdpString(rawString) {
+  return new Promise((resolve, reject) => {
+    const payload = rawString.endsWith('\r\n') ? rawString : (rawString.endsWith('#') ? rawString : rawString + '\r\n');
+    const buf = Buffer.from(payload, 'utf8');
+    oscClient.send(buf, EOS_UDP_STRING_PORT, EOS_IP, (err) => {
+      if (err) reject(err);
+      else resolve(`Sent UDP String: "${payload.trim()}" to ${EOS_IP}:${EOS_UDP_STRING_PORT}`);
+    });
+  });
+}
 
 // Minimal OSC String Encoder for /eos/cmd
 function createOscStringMessage(address, stringArg) {
@@ -45,19 +70,6 @@ function sendOscCommand(cmd) {
     oscClient.send(packet, EOS_PORT, EOS_IP, (err) => {
       if (err) reject(err);
       else resolve(`Sent: /eos/cmd "${cmd}" to ${EOS_IP}:${EOS_PORT}`);
-    });
-  });
-}
-
-function sendOscAddressOnly(address) {
-  return new Promise((resolve, reject) => {
-    const addrBuf = Buffer.from(address + '\0');
-    const rem = addrBuf.length % 4;
-    const pad = rem === 0 ? 0 : 4 - rem;
-    const packet = Buffer.concat([addrBuf, Buffer.alloc(pad), Buffer.from(',\0\0\0')]);
-    oscClient.send(packet, EOS_PORT, EOS_IP, (err) => {
-      if (err) reject(err);
-      else resolve(`Sent: ${address} to ${EOS_IP}:${EOS_PORT}`);
     });
   });
 }
@@ -111,6 +123,17 @@ const TOOLS = [
         intensity: { type: 'number', minimum: 0, maximum: 100, description: 'Intensity percentage (0-100)' }
       },
       required: ['channels', 'hue', 'saturation', 'intensity']
+    }
+  },
+  {
+    name: 'eos_send_udp_string',
+    description: 'Send a raw plain-text UDP String command directly to ETC Eos String RX on Port 4703 (e.g. "Chan 1 At Full#", "Cue 1 Go#").',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        raw_string: { type: 'string', description: 'Raw string command to transmit to Eos UDP String RX (port 4703).' }
+      },
+      required: ['raw_string']
     }
   },
   {
@@ -171,6 +194,8 @@ rl.on('line', async (line) => {
 
       if (name === 'eos_send_command') {
         resultText = await sendOscCommand(args.command);
+      } else if (name === 'eos_send_udp_string') {
+        resultText = await sendUdpString(args.raw_string);
       } else if (name === 'eos_fire_cue') {
         const list = args.cue_list || 1;
         const cue = args.cue_number;
