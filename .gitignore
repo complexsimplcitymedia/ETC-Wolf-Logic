@@ -45,3 +45,6 @@ id_rsa
 
 # Logs
 *.log
+
+# Separate DMX extension subrepo
+dmx/
