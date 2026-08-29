@@ -3,6 +3,8 @@
 
 **Date**: 2026-08-28  
 **Repository**: `https://github.com/complexsimplcitymedia/ETC-Wolf-Logic.git`  
+**Master Showfile**: `ETC Wolf`  
+**Windows Archive Path**: `C:\Users\d_ada.BRICE-HP\Documents\ETC\Eos\ShowArchive\ETC Wolf ...`  
 **Target Platform**: Apple Silicon MacBook Pro / Docker Desktop / Native macOS  
 **Target Deployment**: Norwegian Cruise Line (NCL) Theatrical Lighting & Maritime Control  
 
