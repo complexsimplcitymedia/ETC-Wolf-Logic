@@ -1,0 +1,11 @@
+name: wolfetc
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+      - python-osc
+      - mido
+      - python-rtmidi

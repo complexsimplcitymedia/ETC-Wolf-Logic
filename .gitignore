@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Conda / virtualenv
+.env
+.venv
+env/
+venv/
+
+# SQLite runtime database (not committed - generated at runtime)
+*.db
+*.db-shm
+*.db-wal
+
+# Live state files (runtime artifacts)
+live_eos_state.json
+
+# Node / DMX extension build artifacts
+node_modules/
+dmx/src/editors/vscode/node_modules/
+dmx/website/node_modules/
+*.vsix
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+*.swp
+
+# Screenshots copied from Windows (runtime)
+Screenshot*.png
+
+# SSH keys / secrets
+*.pem
+*.key
+id_ed25519
+id_rsa
+
+# Logs
+*.log
