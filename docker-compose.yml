@@ -1,14 +1,31 @@
 version: "3.8"
 
 services:
+  # Local AI Inference Engine (Ollama for Llama 3.2 Vision & Qwen 27B)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: wolf-logic-ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      # Persistent local model storage on SSD
+      - ./models:/root/.ollama
+    environment:
+      - OLLAMA_KEEP_ALIVE=24h
+      - OLLAMA_NUM_PARALLEL=4
+
+  # High-Throughput Node.js Ingest, DMX Matrix & Magic Sheet Engine
   wolf-engine:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: wolf-logic-engine
     restart: unless-stopped
+    depends_on:
+      - ollama
     ports:
-      # Web Visualizer & Real-time WebSocket Stream
+      # Web UI & Real-time WebSocket Stream
       - "8888:8888/tcp"
       # ETC Eos OSC Ingest & Feedback Ports
       - "8000:8000/udp"
@@ -27,3 +44,4 @@ services:
       - NODE_ENV=production
       - PYTHONUNBUFFERED=1
       - WOLF_DB_PATH=/app/data/wolf_logic_telemetry.db
+      - OLLAMA_HOST=http://ollama:11434/api/generate
