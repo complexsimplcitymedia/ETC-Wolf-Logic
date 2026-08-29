@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wolf Logic — Live 3D Augment3d & Magic Sheet Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #080c14;
+      --panel-bg: rgba(14, 23, 38, 0.85);
+      --panel-border: rgba(0, 229, 255, 0.2);
+      --cyan-glow: #00e5ff;
+      --magenta-glow: #ff007f;
+      --amber-glow: #ff9100;
+      --green-glow: #00e676;
+      --text-main: #f0f4f8;
+      --text-muted: #829ab1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Top HUD Navigation Bar */
+    header {
+      background: rgba(10, 16, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--panel-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.3rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+    .brand span { color: var(--cyan-glow); }
+
+    .hud-metrics {
+      display: flex;
+      gap: 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+    .metric-pill {
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid rgba(0, 229, 255, 0.3);
+      border-radius: 6px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .timecode-val { color: var(--amber-glow); font-weight: bold; font-size: 1.05rem; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-glow); box-shadow: 0 0 10px var(--green-glow); }
+
+    /* Main Grid Layout */
+    main {
+      flex: 1;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Stage Canvas Visualizer */
+    .visualizer-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--cyan-glow);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Stage Layout Diagram SVG / DOM */
+    .stage-container {
+      background: radial-gradient(circle at 50% 30%, rgba(20, 35, 60, 0.5) 0%, rgba(8, 12, 20, 0.95) 75%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 24px;
+      position: relative;
+      min-height: 640px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Upstage Video Wall */
+    .video-wall {
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #1e3a8a);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      height: 48px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      color: white;
+      text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.3);
+    }
+
+    /* Midstage Electric Truss */
+    .midstage-truss {
+      border-top: 2px dashed rgba(255, 255, 255, 0.25);
+      margin: 20px 0;
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-around;
+      position: relative;
+    }
+    .truss-label {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg-dark);
+      padding: 0 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Fixture Dot Component */
+    .fixture-node {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #ff5722;
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff5722;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .fixture-node:hover {
+      transform: scale(1.3);
+      z-index: 10;
+    }
+    .fixture-tooltip {
+      position: absolute;
+      bottom: 34px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 1px solid var(--cyan-glow);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      white-space: nowrap;
+      display: none;
+      pointer-events: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .fixture-node:hover .fixture-tooltip { display: block; }
+
+    /* Columns & Stage Lip */
+    .stage-middle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 12px;
+      height: 80px;
+    }
+    .led-column {
+      background: rgba(129, 140, 248, 0.25);
+      border: 1px solid rgba(129, 140, 248, 0.6);
+      width: 32px;
+      height: 80px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      writing-mode: vertical-rl;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #c7d2fe;
+      box-shadow: 0 0 15px rgba(129, 140, 248, 0.3);
+    }
+    .stage-center-text {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.15);
+      letter-spacing: 6px;
+    }
+
+    /* Proscenium Wash */
+    .proscenium-bar {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+      padding-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .wash-node { background: #ff9800; box-shadow: 0 0 12px #ff9800; }
+
+    /* Audience Seating Grid */
+    .audience-box {
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 20px;
+      background: rgba(15, 23, 42, 0.5);
+      position: relative;
+    }
+    .audience-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.08);
+      letter-spacing: 8px;
+      pointer-events: none;
+    }
+    .grid-lines {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 60px);
+      position: relative;
+    }
+    .grid-node {
+      background: #9c27b0;
+      box-shadow: 0 0 12px #9c27b0;
+      margin: auto;
+    }
+
+    /* FOH Station */
+    .foh-box {
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(30, 41, 59, 0.9);
+      padding: 8px 24px;
+      border-radius: 6px;
+      text-align: center;
+      margin: 16px auto 0;
+      width: fit-content;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan-glow);
+    }
+
+    /* Right Sidebar Telemetry */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .side-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .side-card h3 {
+      font-size: 0.95rem;
+      color: var(--cyan-glow);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .telemetry-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .telemetry-val { color: var(--cyan-glow); font-weight: bold; }
+
+    /* Palette Quick Grid */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+    .palette-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .palette-btn:hover {
+      background: rgba(0, 229, 255, 0.15);
+      border-color: var(--cyan-glow);
+    }
+    .palette-swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand">
+      <span>🐺 WOLF LOGIC</span> // AUGMENT3D & MAGIC SHEET
+    </div>
+    <div class="hud-metrics">
+      <div class="metric-pill">
+        <div class="status-dot"></div>
+        <span>LIVE INGEST:</span>
+        <span class="telemetry-val" id="event-count">0</span>
+      </div>
+      <div class="metric-pill">
+        <span>SMPTE TIMECODE:</span>
+        <span class="timecode-val" id="timecode-display">00:00:00:00</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main>
+    <!-- Stage Visualizer -->
+    <div class="visualizer-card">
+      <div class="section-title">
+        <span>Venue Interactive Stage Map</span>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">NCL Theatrical Standard</span>
+      </div>
+
+      <div class="stage-container">
+        <!-- Upstage Video Wall -->
+        <div class="video-wall">UPSTAGE LED VIDEO WALL</div>
+
+        <!-- Midstage Electric -->
+        <div class="midstage-truss">
+          <div class="truss-label">Midstage Electric (Ch 101 - 110)</div>
+          <!-- 10 Overhead Spots -->
+          <div class="fixture-node" style="background:#00e5ff;">101<div class="fixture-tooltip">Ch 101: VL3600 (X:-4.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">102<div class="fixture-tooltip">Ch 102: VL3600 (X:-3.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">103<div class="fixture-tooltip">Ch 103: VL3600 (X:-2.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">104<div class="fixture-tooltip">Ch 104: VL3600 (X:-1.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">105<div class="fixture-tooltip">Ch 105: VL3600 (X:-0.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">106<div class="fixture-tooltip">Ch 106: VL3600 (X:+0.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">107<div class="fixture-tooltip">Ch 107: VL3600 (X:+1.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">108<div class="fixture-tooltip">Ch 108: VL3600 (X:+2.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">109<div class="fixture-tooltip">Ch 109: VL3600 (X:+3.5m)</div></div>
+          <div class="fixture-node" style="background:#00e5ff;">110<div class="fixture-tooltip">Ch 110: VL3600 (X:+4.5m)</div></div>
+        </div>
+
+        <!-- Stage Middle with LED Columns -->
+        <div class="stage-middle">
+          <div class="led-column">LED COL</div>
+          <div class="stage-center-text">STAGE</div>
+          <div class="led-column">LED COL</div>
+        </div>
+
+        <!-- Proscenium Front Wash -->
+        <div class="proscenium-bar">
+          <div class="fixture-node wash-node">201<div class="fixture-tooltip">Ch 201: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">202<div class="fixture-tooltip">Ch 202: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">203<div class="fixture-tooltip">Ch 203: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">204<div class="fixture-tooltip">Ch 204: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">205<div class="fixture-tooltip">Ch 205: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">206<div class="fixture-tooltip">Ch 206: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">207<div class="fixture-tooltip">Ch 207: B-Eye K15</div></div>
+          <div class="fixture-node wash-node">208<div class="fixture-tooltip">Ch 208: B-Eye K15</div></div>
+        </div>
+
+        <!-- Audience Seating 4x4 Grid -->
+        <div class="audience-box">
+          <div class="audience-bg-text">AUDIENCE SEATING</div>
+          <div class="grid-lines">
+            <!-- Row 1 -->
+            <div class="fixture-node grid-node">401<div class="fixture-tooltip">House 401: Sharpy</div></div>
+            <div class="fixture-node grid-node">402<div class="fixture-tooltip">House 402: Sharpy</div></div>
+            <div class="fixture-node grid-node">403<div class="fixture-tooltip">House 403: Sharpy</div></div>
+            <div class="fixture-node grid-node">404<div class="fixture-tooltip">House 404: Sharpy</div></div>
+            <!-- Row 2 -->
+            <div class="fixture-node grid-node">405<div class="fixture-tooltip">House 405: Sharpy</div></div>
+            <div class="fixture-node grid-node">406<div class="fixture-tooltip">House 406: Sharpy</div></div>
+            <div class="fixture-node grid-node">407<div class="fixture-tooltip">House 407: Sharpy</div></div>
+            <div class="fixture-node grid-node">408<div class="fixture-tooltip">House 408: Sharpy</div></div>
+            <!-- Row 3 -->
+            <div class="fixture-node grid-node">409<div class="fixture-tooltip">House 409: Sharpy</div></div>
+            <div class="fixture-node grid-node">410<div class="fixture-tooltip">House 410: Sharpy</div></div>
+            <div class="fixture-node grid-node">411<div class="fixture-tooltip">House 411: Sharpy</div></div>
+            <div class="fixture-node grid-node">412<div class="fixture-tooltip">House 412: Sharpy</div></div>
+            <!-- Row 4 -->
+            <div class="fixture-node grid-node">413<div class="fixture-tooltip">House 413: Sharpy</div></div>
+            <div class="fixture-node grid-node">414<div class="fixture-tooltip">House 414: Sharpy</div></div>
+            <div class="fixture-node grid-node">415<div class="fixture-tooltip">House 415: Sharpy</div></div>
+            <div class="fixture-node grid-node">416<div class="fixture-tooltip">House 416: Sharpy</div></div>
+          </div>
+        </div>
+
+        <!-- FOH Control Station -->
+        <div class="foh-box">FOH MIX & LIGHTING CONTROL (M1 MAX CO-PILOT)</div>
+      </div>
+    </div>
+
+    <!-- Right Sidebar Telemetry -->
+    <div class="sidebar">
+      <div class="side-card">
+        <h3>Eos Master Telemetry</h3>
+        <div class="telemetry-row">
+          <span>Active Cue:</span>
+          <span class="telemetry-val" id="active-cue">List 1 Cue 5</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Command Line:</span>
+          <span class="telemetry-val" id="cmd-line">Chan 1 At Full</span>
+        </div>
+        <div class="telemetry-row">
+          <span>Total Ingested:</span>
+          <span class="telemetry-val" id="total-events">1,420 events</span>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <h3>Universal HSI Palettes</h3>
+        <div class="palette-grid">
+          <button class="palette-btn"><div class="palette-swatch" style="background:#ff0000;"></div>CP 1 Red</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#ff9100;"></div>CP 2 Orange</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#ffea00;"></div>CP 3 Yellow</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#00e676;"></div>CP 4 Green</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#00e5ff;"></div>CP 5 Cyan</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#2979ff;"></div>CP 6 Blue</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#ff007f;"></div>CP 7 Magenta</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#ffe082;"></div>CP 9 3200K</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#fff9c4;"></div>CP 10 4400K</button>
+          <button class="palette-btn"><div class="palette-swatch" style="background:#e0f7fa;"></div>CP 11 5600K</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Live WebSocket Telemetry Connection
+    const ws = new WebSocket(`ws://${window.location.host}`);
+    
+    ws.onmessage = event => {
+      try {
+        const payload = JSON.parse(event.data);
+        if (payload.timecode) {
+          document.getElementById('timecode-display').textContent = payload.timecode;
+        }
+        if (payload.data) {
+          if (payload.data.total_events) {
+            document.getElementById('event-count').textContent = payload.data.total_events;
+            document.getElementById('total-events').textContent = `${payload.data.total_events} events`;
+          }
+          if (payload.data.active_cue) {
+            document.getElementById('active-cue').textContent = payload.data.active_cue;
+          }
+          if (payload.data.command_line) {
+            document.getElementById('cmd-line').textContent = payload.data.command_line;
+          }
+        }
+      } catch (e) {}
+    };
+  </script>
+</body>
+</html>
