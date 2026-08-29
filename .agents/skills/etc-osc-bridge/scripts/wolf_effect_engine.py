@@ -24,8 +24,9 @@ STANDARD_PALETTES = {
     6: {"name": "Blue",          "hue": 240.0, "sat": 100.0, "notes": "Deep Blue / Primary"},
     7: {"name": "Magenta",       "hue": 300.0, "sat": 100.0, "notes": "Hot Pink / Magenta"},
     8: {"name": "Lavender",      "hue": 270.0, "sat": 60.0,  "notes": "Pastel Lavender"},
-    9: {"name": "Warm White",    "hue": 40.0,  "sat": 25.0,  "notes": "3200K Tungsten Look"},
-    10: {"name": "Cool White",   "hue": 200.0, "sat": 15.0,  "notes": "6000K Daylight Look"}
+    9: {"name": "Warm White",    "hue": 35.0,  "sat": 28.0,  "notes": "3200K Tungsten Standard"},
+    10: {"name": "Cool White",   "hue": 50.0,  "sat": 12.0,  "notes": "4400K Cool White Standard"},
+    11: {"name": "Daylight Raw", "hue": 205.0, "sat": 10.0,  "notes": "5600K Daylight Raw"}
 }
 
 EFFECT_SCHEMA = """
