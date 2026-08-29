@@ -26,6 +26,12 @@ CREATE TABLE IF NOT EXISTS fixture_matrix (
     -- Universal HSI Color Representation (Fixture-Agnostic)
     hue             REAL DEFAULT 0.0,       -- 0.0° - 360.0° (Color Angle)
     saturation      REAL DEFAULT 0.0,       -- 0.0% - 100.0% (Purity)
+    cct_target      INTEGER DEFAULT 5600,   -- Target Color Temp (3200K, 4400K, 5600K)
+    
+    -- Real-World Camera & Meter Calibration Trims (Per-Fixture Offset)
+    cct_dial_trim   INTEGER DEFAULT 0,      -- e.g. +500K dial trim to hit true 5600K on meter
+    hue_trim        REAL DEFAULT 0.0,       -- ± Degrees hue trim for LED batch matching
+    sat_trim        REAL DEFAULT 0.0,       -- ± Percent saturation trim
     
     -- Spatial Coordinates
     pan             REAL DEFAULT 0.0,       -- Degrees (-270.0 to +270.0)
