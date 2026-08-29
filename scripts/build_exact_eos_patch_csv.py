@@ -85,15 +85,13 @@ def generate_exact_patch():
         ]
         lines.append(",".join(row) + ",,,,,,,,")
 
-    # 2. Numbered NCL Fleet Fixtures (120 units with model-based channel numbers)
+    # 2. Sequential NCL Fleet Fixtures (Channels 1 through 120)
     # ADDRESS is left unpatched so you can soft-patch universes at will!
-    total_added = 0
+    current_channel = 1
     for fix in NCL_FIXTURES:
         for u in range(10):
-            ch_num = fix["start_ch"] + u
-            total_added += 1
             row = [
-                str(ch_num),                # CHANNEL (Numbered directly by model!)
+                str(current_channel),         # CHANNEL (1 through 120 sequentially)
                 fix["type"],                # FIXTURE_TYPE
                 fix["manuf"],               # MANUFACTURER
                 "",                         # FIXTURE_DCID
@@ -105,6 +103,7 @@ def generate_exact_patch():
                 "", "", "", "", "", "", ""
             ]
             lines.append(",".join(row) + ",,,,,,,,")
+            current_channel += 1
 
     lines.append("END_CHANNELS,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,")
 
@@ -116,7 +115,7 @@ def generate_exact_patch():
         print(f"✓ Numbered Eos Patch CSV exported to: {out_path}")
 
     print(f"  • Existing Patched Sharpy 330s: 10 units (Ch 3301-3310)")
-    print(f"  • Numbered NCL Fleet Fixtures: {total_added} units (Ch 301-3610)")
+    print(f"  • Numbered NCL Fleet Fixtures: {current_channel - 1} units (Ch 1 - 120)")
 
 if __name__ == "__main__":
     generate_exact_patch()
