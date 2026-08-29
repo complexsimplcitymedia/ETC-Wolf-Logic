@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  wolf-bridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wolf-logic-bridge
+    restart: unless-stopped
+    # Use host networking on Linux/macOS for native UDP multicast & broadcast
+    network_mode: "host"
+    volumes:
+      - ./data:/app/data
+      - ./.agents:/app/.agents
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WOLF_DB_PATH=/app/data/wolf_logic_telemetry.db
+    command: ["python", ".agents/skills/etc-osc-bridge/scripts/eos_realtime_monitor.py", "--port", "9000"]
